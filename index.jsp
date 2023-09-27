@@ -4,7 +4,7 @@
 <html>
 <head>
     <script>
-	window.open("popup/popup1.jsp", "popup", "width=365, height = 250, left = 0, top=0")
+	//window.open("popup/popup1.jsp", "popup", "width=365, height = 250, left = 0, top=0")
     </script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -14,7 +14,7 @@
 </head>
 <body>
 	<%@ include file="top_menu.jsp" %>
-	<%@ include file="body_main.jsp" %>	
+	<%@ include file="store.jsp" %>	
     <%@ include file="footer.jsp" %>
 </body>
 </html>

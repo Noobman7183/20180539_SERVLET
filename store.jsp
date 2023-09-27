@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page contentType = "text/html;charset=utf-8" %>
+<% String currentPage = "store"; // 현재 페이지를 설정합니다. %>
 
 <body>	<%-- JSP 주석 처리 --%>
 	 <%-- CLASS는 스타일 적용시에 사용 되는 이름, 중첩 가능 --%>
