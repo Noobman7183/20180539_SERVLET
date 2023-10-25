@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="dto.Product"%>
-<jsp:useBean id="productDAO" class="dao.ProductRepository" scope="session" />
 
 <script>
 $(document).ready(function(){
@@ -57,7 +56,7 @@ $(document).ready(function(){
     <p style="color:white;">Here is the information about the best selling product...</p>
     <% for (int i = 0; i< listOfProducts.size(); i++){ 
         Product product = listOfProducts.get(i);%>
-        <a href="Portal2.html" style="text-decoration: none; color: inherit; display: inline-block;">
+        <a href="index.jsp?productName=<%=product.getPname().replace(" ", "_")%>" style="text-decoration: none; color: inherit; display: inline-block;">
             <nav class="navbar navbar-dark bg-dark" style="width:900px; margin: 0 auto; height:80px; margin-bottom:10px">
                 <div class="text">
                     <img src="<%=product.getThumbnail()%>", class="img-fluid" alt="portal2_thumbnail">

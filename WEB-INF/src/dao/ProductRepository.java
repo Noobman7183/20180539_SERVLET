@@ -13,7 +13,9 @@ public class ProductRepository {
 		Portal.setManufacturer("Valve");
 		Portal.setUnitsInStock(1000);
 		Portal.setCondition("New");
-        Portal.setThumbnail("image/Portal1.jpg");
+        Portal.setThumbnail("image/thumbnail/Portal1.jpg");
+        Portal.setPicture("image/picture/Portal1_Picture_1.jpg");
+        Portal.setBiglogo("image/biglogo/Portal1_Big_logo.jpg");
         
 		Product Portal2 = new Product("620", "Portal 2", 12000);
 		Portal2.setDescription("The \"Perpetual Testing Initiative\" has been expanded to allow you to design co-op puzzles for you and your friends!");
@@ -21,7 +23,9 @@ public class ProductRepository {
 		Portal2.setManufacturer("Valve");
 		Portal2.setUnitsInStock(1000);
 		Portal2.setCondition("New");
-        Portal2.setThumbnail("image/Portal2.jpg");
+        Portal2.setThumbnail("image/thumbnail/Portal2.jpg");
+        Portal2.setPicture("image/picture/Portal2_Picture_1.jpg");
+        Portal2.setBiglogo("image/biglogo/Portal2_Big_logo.jpg");
 
 		Product Baba = new Product("736260", "Baba Is You", 15000);
 		Baba.setDescription("Baba Is You is a puzzle game where the rules you have to follow are present as blocks you can interact with. By manipulating them, you can change how the game works, repurpose things you find in the levels and cause surprising interactions!");
@@ -29,7 +33,9 @@ public class ProductRepository {
 		Baba.setManufacturer("Hempuli Oy");
 		Baba.setUnitsInStock(1000);
 		Baba.setCondition("New");
-        Baba.setThumbnail("image/baba.jpg");
+        Baba.setThumbnail("image/thumbnail/baba.jpg");
+        Baba.setPicture("image/picture/Baba_Picture_1.jpg");
+        Baba.setBiglogo("image/biglogo/Baba_Big_logo.jpg");
 		
 		// 위와 같이 상품 초기화 하고 아래에 상품을 추가
 

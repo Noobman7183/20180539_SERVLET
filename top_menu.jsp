@@ -24,6 +24,12 @@
           dropdown.querySelector('.dropdown-menu').classList.remove('show');
         });
       });
+      let storeButton = document.getElementById("storeButton");
+      if (storeButton) { // Always good to check
+        storeButton.addEventListener("click", function() {
+          window.location.href = "/index.jsp";
+        });
+      }
     });
 </script>
 
@@ -33,11 +39,11 @@
     </div>
     
 	<div class="dropdown">
-        <button class="btn btn-dark dropdown-toggle<%= currentPage.equals("store") ? " active" : "" %>" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button id="storeButton" class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             상점
         </button>
     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">홈</a>
+        <a class="dropdown-item" href="/index.jsp">홈</a>
         <a class="dropdown-item" href="#">탐색 대기열</a>
         <a class="dropdown-item" href="#">찜 목록</a>
         <a class="dropdown-item" href="#">포인트 상점</a>

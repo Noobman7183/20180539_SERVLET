@@ -14,6 +14,8 @@ public class Product implements Serializable { // 인터페이스 선언
 	private long unitsInStock; //재고수 
 	private String condition; 	//신상품 or 중고품 or 재생품
     private String thumbnail; // 썸네일
+    private String picture; // 이미지
+    private String biglogo; // 큰 로고
 
     public Product() {
         super();
@@ -95,5 +97,21 @@ public class Product implements Serializable { // 인터페이스 선언
     
     public void setThumbnail(String thumbnail){
         this.thumbnail = thumbnail;
+    }
+    
+    public String getPicture(){
+        return picture;
+    }
+    
+    public void setPicture(String picture){
+        this.picture = picture;
+    }
+    
+    public String getBiglogo(){
+        return biglogo;
+    }
+    
+    public void setBiglogo(String biglogo){
+        this.biglogo = biglogo;
     }
 }

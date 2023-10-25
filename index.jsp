@@ -1,6 +1,8 @@
 
 <%@ page contentType="text/html; charset=utf-8"%>
 
+<jsp:useBean id="productDAO" class="dao.ProductRepository" scope="session" />
+
 <html>
 <head>
     <script>
@@ -13,8 +15,19 @@
  <title>NotSteam</title>
 </head>
 <body>
-	<%@ include file="top_menu.jsp" %>
-	<%@ include file="store.jsp" %>	
+    <%@ include file="top_menu.jsp" %>
+    <%
+        String productName = request.getParameter("productName");
+        if (productName != null && !productName.isEmpty()) {
+    %>
+        <%@ include file="store_advance.jsp" %>
+    <%
+        } else {
+    %>
+        <%@ include file="store.jsp" %>
+    <%
+        }
+    %>
     <%@ include file="footer.jsp" %>
 </body>
 </html>
