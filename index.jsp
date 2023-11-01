@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=utf-8"%>
 
 <jsp:useBean id="productDAO" class="dao.ProductRepository" scope="session" />

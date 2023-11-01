@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
 <%@ page import="dto.Product"%>
-
+<%@ page import="java.util.stream.Collectors"%>
 
 <script>
 $(document).ready(function(){
@@ -18,6 +19,14 @@ $(document).ready(function(){
 
 <% ArrayList<Product> listOfProducts = productDAO.getAllProducts(); %>
 
+<% ArrayList<Product> filteredList = new ArrayList(); %>
+<%
+for (Product product : listOfProducts) {
+    if (product.getPname().equals(check_productName.replace("_", " "))) {
+        filteredList.add(product);
+    }
+}%>
+    
 <body>
     <div style="background-color:#121a21;">
         <nav class="navbar" style="width:900px; margin: 0 auto; height:80px; margin-bottom:0px">
@@ -31,22 +40,16 @@ $(document).ready(function(){
 </body>
 
 <div style="background-color:#212F3C; text-align: center;">
-    <% for (int i = 0; i< listOfProducts.size(); i++){ 
-        Product product = listOfProducts.get(i);%>
-        <a href="index.jsp?productName=<%=product.getPname().replace(" ", "_")%>" style="text-decoration: none; color: inherit; display: inline-block;">
-            <nav class="navbar navbar-dark bg-dark" style="width:900px; margin: 0 auto; height:80px; margin-bottom:10px">
-                <div class="text">
-                    <img src="<%=product.getBiglogo()%>", class="img-fluid" alt="portal2_thumbnail">
-                </div>
-                <p style="margin-left:10px; color:white;"><%=product.getPname()%></p>
-                <%
-                    java.text.NumberFormat formatter = java.text.NumberFormat.getInstance();
-                    String formattedPrice = formatter.format(product.getUnitPrice());
-                %>
-                <p style="margin-left:auto; margin-right:10px; color:white;">\ <%=formattedPrice%></p>            
-            </nav>
-        </a>
-        <%
-    }
-    %>
+    <div class="navbar navbar-dark bg-dark" style="width:1000px; margin: 0 auto; height:400px; margin-bottom:0px;">
+        <div style="width:600px; height:300px; background-color:black; text-align: center;">
+            <img src="<%=filteredList.get(0).getPicture()%>" class="img-fluid" alt="game_thumbnail" style="object-fit:contain; width:100%; height:100%;">
+        </div>
+        <div style="width:350px; height:300px; background-color:black; display: flex; flex-direction: column; text-align:left;">
+            <div style="align-self: flex-start;">
+                <img src="<%=filteredList.get(0).getBiglogo()%>" class="img-fluid" alt="game_biglogo" style="object-fit:contain; width:100%; height:auto;">
+                <p style="margin-left:10px; color:white; font-size:13px;"><%=filteredList.get(0).getDescription()%></p>
+                <p style="margin-left:10px; color:white; justify-content:flex-end;"><%=filteredList.get(0).getManufacturer()%></p>
+            </div>
+        </div>
+    </div>
 </div>
