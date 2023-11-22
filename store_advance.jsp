@@ -6,14 +6,6 @@
 <%@ page import="java.text.NumberFormat"%>
 <%@ page import="java.util.Locale"%>
 
-<script>
-$(document).ready(function(){
-    $(".show-best-seller").click(function(){
-        $("#bestSellerInfo").toggle();
-    });
-});
-</script>
-
 <%
   String check_productName = request.getParameter("productName");
   // 로직으로 해당 제품 정보 불러오기
@@ -28,7 +20,7 @@ for (Product product : listOfProducts) {
         filteredList.add(product);
     }
 }%>
-    
+      
 <body>
     <div style="background-color:#121a21;">
         <nav class="navbar" style="width:900px; margin: 0 auto; height:80px; margin-bottom:0px">
@@ -39,6 +31,17 @@ for (Product product : listOfProducts) {
             </div>
         </nav>
 	</div>
+    <script>
+    $(document).ready(function(){
+        $(".show-best-seller").click(function(){
+            $("#bestSellerInfo").toggle();
+        });
+    $('#cartButton').click(function() {
+        window.location.href = 'index.jsp?cart=true'; // URL 수정
+    });
+    });
+    </script>
+
 </body>
 
 <% NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("ko", "KR")); %>
@@ -65,7 +68,7 @@ for (Product product : listOfProducts) {
             <nav class="navbar" style="width:900px; height:80px; margin-bottom:0px">
                 <div class="text-center">
                     <h3>
-                        <p style="align-items: center; margin-right:700px; color:white; font-size:20px;">Buy <%=check_productName.replace("_", "&nbsp;")%></p>
+                        <p style="align-items: center; margin-top:5px; margin-right:700px; color:white; font-size:20px;">Buy <%=check_productName.replace("_", "&nbsp;")%></p>
                     </h3>
                 </div>
             <div style="margin-left:370px; display: flex; align-items: center; justify-content: space-between;
@@ -73,7 +76,7 @@ for (Product product : listOfProducts) {
               <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
                 <span style="font-size: 18px; color:white;"><%=formattedPrice%></span>
               </div>
-              <button style="background-color: #27AE60; color: white; width: 50%; height: 40px;">In Cart</button>
+                <button id="cartButton" style="background-color: #27AE60; color: white; width: 50%; height: 40px;">In Cart</button>
             </div>
             </nav>
         </div>
