@@ -37,49 +37,33 @@
     <div class="text-center" style="margin-left:300px;">
         <img src="image\NotSTEAM.png" class="img-fluid" alt="logo_image">
     </div>
-    
+
 	<div class="dropdown">
-        <button id="storeButton" class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            상점
+        <button id="membermanage" class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            회원 관리
         </button>
     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="/index.jsp">홈</a>
-        <a class="dropdown-item" href="#">탐색 대기열</a>
-        <a class="dropdown-item" href="#">찜 목록</a>
-        <a class="dropdown-item" href="#">포인트 상점</a>
-        <a class="dropdown-item" href="#">뉴스</a>
-        <a class="dropdown-item" href="#">통계</a>
+        <a class="dropdown-item" href="/index.jsp">회원 관리</a>
+        <a class="dropdown-item" href="#">회원 추가</a>
+        <a class="dropdown-item" href="#">회원 수정</a>
+        <a class="dropdown-item" href="#">회원 삭제</a>
      </ul>
 	</div>
-    
-    <div class="dropdown">
-        <button class="btn btn-dark dropdown-toggle<%= currentPage.equals("community") ? " active" : "" %>" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    		커뮤니티
-  		</button>
+	<div class="dropdown">
+        <button id="storemanage" class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            상품 관리
+        </button>
     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="#">홈</a></li>
-        <li><a class="dropdown-item" href="#">토론</a></li>
-        <li><a class="dropdown-item" href="#">창작마당</a></li>
-        <li><a class="dropdown-item" href="#">장터</a></li>
-        <li><a class="dropdown-item" href="#">방송</a></li>
+        <a class="dropdown-item" href="/index.jsp">상품 보기</a>
+        <a class="dropdown-item" href="product_add.jsp">상품 등록</a>
+        <a class="dropdown-item" href="#">상품 수정</a>
+        <a class="dropdown-item" href="#">상품 삭제</a>
      </ul>
 	</div>
     
-    <div>
-  		<button class="btn btn-dark" type="button" aria-haspopup="true" aria-expanded="false">
-    		정보
-  		</button>
-	</div>
-
-    <div>
-  		<button class="btn btn-dark" type="button" aria-haspopup="true" aria-expanded="false">
-    		지원
-  		</button>
-	</div>
-    
-	<div class="container">
+    <div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="admin/index_ad.jsp">관리자 모드</a>
+			<a class="navbar-brand" href="/index.jsp">일반 모드</a>
 		</div>
 	</div>
 </nav>

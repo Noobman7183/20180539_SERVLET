@@ -9,7 +9,8 @@ public class Product implements Serializable { // 인터페이스 선언
 	private String pname;		//상품명
 	private Integer unitPrice; //상품 가격
 	private String description; //상품 설명
-	private String manufacturer;//제조사
+	private String developer; //개발사
+    private String publisher; //배급사
 	private String category; 	//분류
 	private long unitsInStock; //재고수 
 	private String condition; 	//신상품 or 중고품 or 재생품
@@ -59,12 +60,20 @@ public class Product implements Serializable { // 인터페이스 선언
 		this.description = description;
 	}
 
-	public String getManufacturer() {
-		return manufacturer;
+	public String getDeveloper() {
+		return developer;
 	}
 
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
+	public void setDeveloper(String developer) {
+		this.developer = developer;
+	}
+    
+    public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
 	}
 
 	public String getCategory() {
