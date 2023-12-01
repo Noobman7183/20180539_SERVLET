@@ -4,7 +4,7 @@
 <%@ page import="java.util.TimeZone" %>
 
 <footer class="container">
-	<p>&copy; 웹마켓 최하단 상태바<br> 
+	<p style="color:white; margin-top:50px;">&copy; 웹마켓 최하단 상태바<br> 
             <%
     Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
     Date day = calendar.getTime();
