@@ -11,21 +11,16 @@ $(document).ready(function(){
 });
 </script>
 
-<body>	<%-- JSP 주석 처리 --%>
-	 <%-- CLASS는 스타일 적용시에 사용 되는 이름, 중첩 가능 --%>
-<%! String greeting = "Welcome to Web Shopping Mall";
-      String tagline = "Welcome t123123o Web Market!";%>
+<body style="background-color:#121a21;">
 	<div class="jumbotron">
 		<div class="container">
 			<h1 class="display-3">
-				<%=greeting%>
 			</h1>
 		</div>
 	</div>	
 	<div class="container">
 		<div class="text-center">
 			<h3>
-				<%=tagline%>
 			</h3>
 		</div>
 		<hr>

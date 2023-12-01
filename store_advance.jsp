@@ -23,7 +23,7 @@ for (Product product : listOfProducts) {
     }
 }%>
 
-<body>
+<body style="background-color:#212F3C">
     <div style="background-color:#121a21;">
         <nav class="navbar" style="width:900px; margin: 0 auto; height:80px; margin-bottom:0px">
             <div class="text-center">

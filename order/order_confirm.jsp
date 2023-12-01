@@ -44,17 +44,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<title>주문 정보</title>
 </head>
-<body>
+<body style="background-color:#212F3C;">
 	<jsp:include page="../top_menu.jsp" />
-	<div class="jumbotron">
-	   <div class="container">
-		<h1 class="display-3">주문 정보</h1>
-	   </div>
+    <div>
+        <nav class="navbar" style="width:1300px; margin: 0 auto; height:80px; margin-bottom:0px">
+            <div class="text-center">
+                <h3>
+                    <p style="margin-right:100px; color:white;">주문 정보</p>
+                </h3>
+            </div>
+        </nav>
 	</div>
-
-	<div class="container col-8 alert alert-info">
+	<div class="container col-8 alert" style="background-color:#121a21; color:white;">
 	   <div class="text-center ">
 		<h1>영수증</h1>
 	   </div>
@@ -62,16 +64,16 @@
 		<div class="col-4" align="left">
 			<strong>배송 주소</strong> <br> 성명 : <% out.println(shipping_name); %>	<br> 
 			우편번호 : <% out.println(shipping_zipCode);%><br> 
-			주소 : <% out.println(shipping_addressName);%>(<% out.println(shipping_country);%>) <br>
+			주소 : <% out.println(shipping_addressName);%>(<% out.println(shipping_country);%>)<br>
 		</div>
 	</div>
 	<div>
-		<table class="table table-hover">			
-		<tr>
-			<th class="text-center">도서</th>
-			<th class="text-center">#</th>
-			<th class="text-center">가격</th>
-			<th class="text-center">소계</th>
+		<table class="table table-hover custom-table">			
+		<tr style="color:white;">
+			<th>상품</th>
+			<th class="text-center"></th>
+			<th class="text-center"></th>
+			<th>가격</th>
 		</tr>
 		<%
 			int sum = 0;
@@ -83,19 +85,20 @@
 				int total = product.getUnitPrice();
 				sum = sum + total;
 		%>
-		<tr>
-			<td class="text-center"><em><%=product.getPname()%> </em></td>
-			<td class="text-center"></td>
-			<td class="text-center"><%=formatter.format(total)%></td>
+		<tr style="color:white;">
+			<td><img src="../<%=product.getThumbnail()%>", class="img-fluid" alt="game_thumbnail" style="width:120px; height:45px;"> <%=product.getPname()%></td>
+			<td></td>
+            <td></td>
+			<td><%=formatter.format(total)%></td>
 		</tr>
 		<%
 			}
 		%>
-		<tr>
+		<tr style="color:white;">
 			<td> </td>
 			<td> </td>
 			<td class="text-right">	<strong>총액: </strong></td>
-			<td class="text-center text-danger"><strong><%=formatter.format(sum)%> </strong></td>
+			<td class="text-center"><strong><%=formatter.format(sum)%> </strong></td>
 		</tr>
 		</table>
 		
