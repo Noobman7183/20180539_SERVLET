@@ -60,4 +60,13 @@ public class ProductRepository {
     public void addProduct(Product product) {
         listOfProducts.add(product);
     }
+    
+    public Product getProductById(String productId) {
+        for (Product product : listOfProducts) {
+            if (product.getProductId().equals(productId)) {
+                return product;
+            }
+        }
+        return null; // 상품이 없을 경우 null 반환
+    }
 }

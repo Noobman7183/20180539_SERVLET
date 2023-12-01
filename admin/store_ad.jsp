@@ -59,7 +59,7 @@ $(document).ready(function(){
     <p style="color:white;">Here is the information about the best selling product...</p>
     <% for (int i = 0; i< listOfProducts.size(); i++){ 
         Product product = listOfProducts.get(i);%>
-        <a href="index.jsp?productName=<%=product.getPname().replace(" ", "_")%>" style="text-decoration: none; color: inherit; display: inline-block;">
+        <a href="index_ad.jsp?productName=<%=product.getPname() != null ? product.getPname().replace(" ", "_") : ""%>" style="text-decoration: none; color: inherit; display: inline-block;">
             <nav class="navbar navbar-dark bg-dark" style="width:900px; margin: 0 auto; height:80px; margin-bottom:10px">
                 <div class="text">
                     <img src="<%=product.getThumbnail()%>", class="img-fluid" alt="portal2_thumbnail">

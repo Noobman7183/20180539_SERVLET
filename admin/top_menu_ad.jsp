@@ -66,4 +66,9 @@
 			<a class="navbar-brand" href="/index.jsp">일반 모드</a>
 		</div>
 	</div>
+    <div class="form-group row">
+       <div class="col-sm-offset-2 col-sm-10 ">
+            <a href="../login/logout.jsp" class="btn btn-sm btn-success pull-right">로그아웃</a>
+        </div>
+    </div>
 </nav>

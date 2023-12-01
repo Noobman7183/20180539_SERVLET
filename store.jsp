@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="dto.Product"%>
+<%@ page import="dao.ProductRepository" %>
 
 <script>
 $(document).ready(function(){
@@ -49,17 +50,20 @@ $(document).ready(function(){
 	</div>
 </nav>
 
-<% ArrayList<Product> listOfProducts = productDAO.getAllProducts(); %>
+<%
+    ProductRepository dao = ProductRepository.getInstance();
+    ArrayList<Product> listOfProducts = dao.getAllProducts();
+%>
 
 <div id="bestSellerInfo" style="display:none; background-color:#212F3C; text-align: center;">
     <h3 style="color:white;">Best Seller Information</h3>
     <p style="color:white;">Here is the information about the best selling product...</p>
     <% for (int i = 0; i< listOfProducts.size(); i++){ 
         Product product = listOfProducts.get(i);%>
-        <a href="index.jsp?productName=<%=product.getPname().replace(" ", "_")%>" style="text-decoration: none; color: inherit; display: inline-block;">
+        <a href="index.jsp?productName=<%=product.getPname() != null ? product.getPname().replace(" ", "_") : ""%>" style="text-decoration: none; color: inherit; display: inline-block;">
             <nav class="navbar navbar-dark bg-dark" style="width:900px; margin: 0 auto; height:80px; margin-bottom:10px">
                 <div class="text">
-                    <img src="<%=product.getThumbnail()%>", class="img-fluid" alt="portal2_thumbnail">
+                    <img src="<%=product.getThumbnail()%>", class="img-fluid" alt="game_thumbnail" style="width:120px; height:45px;">
                 </div>
                 <p style="margin-left:10px; color:white;"><%=product.getPname()%></p>
                 <%

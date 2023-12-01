@@ -35,7 +35,7 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark" style="height:80;">
     <div class="text-center" style="margin-left:300px;">
-        <img src="image\NotSTEAM.png" class="img-fluid" alt="logo_image">
+        <img src="..\image\NotSTEAM.png" class="img-fluid" alt="logo_image">
     </div>
     
 	<div class="dropdown">

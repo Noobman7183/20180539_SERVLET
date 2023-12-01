@@ -11,8 +11,9 @@
   // 로직으로 해당 제품 정보 불러오기
 %>
 
-<% ArrayList<Product> listOfProducts = productDAO.getAllProducts(); %>
 
+<% ProductRepository dao = ProductRepository.getInstance();%>
+<% ArrayList<Product> listOfProducts = dao.getAllProducts(); %>
 <% ArrayList<Product> filteredList = new ArrayList(); %>
 <%
 for (Product product : listOfProducts) {
