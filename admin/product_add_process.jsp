@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="dto.Product"%>
-<%@ page import="dao.ProductRepository"%>
-<%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload" %>
-<%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory" %>
-<%@ page import="org.apache.commons.fileupload.*" %>
 <%@ page import="java.io.File" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="org.apache.commons.fileupload.FileItem" %>
+<%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory" %>
+<%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload" %>
+<%@ page import="java.sql.*"%>
+<%@ include file="../db/db_conn.jsp" %>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -31,80 +31,89 @@
                     fileItems.put(item.getFieldName(), item);
                 }
             }
-			Product newProduct = new Product();
 
             // 파일 처리
             String appPath = request.getServletContext().getRealPath("");
-            String productName = formFields.get("name"); // 상품명을 폼 필드에서 가져옴
-            String safeProductName = productName.replace(" ", "_"); // 공백을 언더스코어로 변경
+            String saveDir = appPath + File.separator + "image"; // 이미지를 저장할 디렉토리 경로
+            File fileSaveDir = new File(saveDir);
+            if (!fileSaveDir.exists()) {
+                fileSaveDir.mkdirs(); // 디렉토리가 존재하지 않으면 새로 생성
+            }
 
+            String productId = formFields.get("productId");
+            String name = formFields.get("name");
+            String unitPrice = formFields.get("unitPrice");
+            String description = formFields.get("description");
+            String developer = formFields.get("developer");
+            String publisher = formFields.get("publisher");
+            String category = formFields.get("genre");
+            String unitsInStock = formFields.get("unitsInStock");
+            String condition = formFields.get("condition");
+
+            String thumbnail = "";
+            String picture = "";
+            String logo = "";
+            
+            String thumbnailDir = saveDir + File.separator + "thumbnail";
+            String pictureDir = saveDir + File.separator + "picture";
+            String logoDir = saveDir + File.separator + "biglogo";
+            String safeProductName = productId + "_" + name.replace(" ", "_");
+            // 이미지 파일 처리
             FileItem productThumbnail = fileItems.get("productThumbnail");
             if (productThumbnail != null && !productThumbnail.getName().isEmpty()) {
-                
-                String originalFileName = productThumbnail.getName();
+                String originalFileName = new File(productThumbnail.getName()).getName();
                 String extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
                 String newFileName = safeProductName + extension;
-                
                 String filePath = "image/thumbnail" + File.separator + newFileName;
-                newProduct.setThumbnail(filePath);
-                File storeFile = new File(filePath);
-                productThumbnail.write(storeFile);
+                thumbnail = filePath;
+                File storeFile = new File(thumbnailDir + File.separator + newFileName);
+                productThumbnail.write(storeFile); // 파일 저장
             }
 
             FileItem productImage = fileItems.get("productImage");
             if (productImage != null && !productImage.getName().isEmpty()) {
-                String originalFileName = productThumbnail.getName();
+                String originalFileName = new File(productImage.getName()).getName();
                 String extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
-                String newFileName = safeProductName + "_Picture_1" + extension;
+                String newFileName = safeProductName + "_1" + extension;
                 String filePath = "image/picture" + File.separator + newFileName;
-                newProduct.setPicture(filePath);
-                File storeFile = new File(filePath);
-                productImage.write(storeFile);
+                logo = filePath;
+                File storeFile = new File(pictureDir + File.separator + newFileName);
+                productImage.write(storeFile); // 파일 저장
             }
 
             FileItem productLogo = fileItems.get("productLogo");
             if (productLogo != null && !productLogo.getName().isEmpty()) {
-                String originalFileName = productThumbnail.getName();
+                String originalFileName = new File(productLogo.getName()).getName();
                 String extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
-                String newFileName = safeProductName + "_Big_logo"+ extension;
+                String newFileName = safeProductName + "_Big_logo" + extension;
                 String filePath = "image/biglogo" + File.separator + newFileName;
-                newProduct.setBiglogo(filePath);
-                File storeFile = new File(filePath);
-                productLogo.write(storeFile);
+                picture = filePath;
+                File storeFile = new File(logoDir + File.separator + newFileName);
+                productLogo.write(storeFile); // 파일 저장
             }
 
-			String productId = formFields.get("productId");
-			String name = formFields.get("name");
-			String unitPrice = formFields.get("unitPrice");
-			String description = formFields.get("description");
-			String developer = formFields.get("developer");
-			String publisher = formFields.get("publisher");
-			String category = formFields.get("genre");
-			String unitsInStock = formFields.get("unitsInStock");
-			String condition = formFields.get("condition");
+			// 데이터베이스 연결 및 SQL 쿼리 실행
+            String sql = "INSERT INTO product (p_id, p_name, p_unitPrice, p_description, p_category, p_developer, p_publisher, p_thumbnail, p_picture, p_logo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, productId);
+            pstmt.setString(2, name);
+            pstmt.setString(3, unitPrice);
+            pstmt.setString(4, description);
+            pstmt.setString(5, category);
+            pstmt.setString(6, developer);
+            pstmt.setString(7, publisher);
+            pstmt.setString(8, thumbnail);
+            pstmt.setString(9, picture);
+            pstmt.setString(10, logo);
+            pstmt.executeUpdate();
 
-			// 나머지 로직 처리...
-			Integer price = unitPrice.isEmpty() ? 0 : Integer.valueOf(unitPrice);
-			long stock = unitsInStock == null || unitsInStock.isEmpty() ? 0 : Long.valueOf(unitsInStock);
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
 
-			ProductRepository dao = ProductRepository.getInstance();
+            response.sendRedirect("index_ad.jsp");
 
-			newProduct.setProductId(productId);
-			newProduct.setPname(name);
-			newProduct.setUnitPrice(price);
-			newProduct.setDescription(description);
-			newProduct.setDeveloper(developer);
-			newProduct.setPublisher(publisher);
-			newProduct.setCategory(category);
-			newProduct.setUnitsInStock(stock);
-			newProduct.setCondition(condition);
-            
-			dao.addProduct(newProduct);
-
-		} catch (FileUploadException e) {
-			// 파일 업로드 예외 처리
-		}
-	}
-
-	response.sendRedirect("index_ad.jsp");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 %>

@@ -17,8 +17,6 @@ public class ProductRepository {
 		Portal.setCategory("Puzzle game");
 		Portal.setDeveloper("Valve");
         Portal.setPublisher("Valve");
-		Portal.setUnitsInStock(1000);
-		Portal.setCondition("New");
         Portal.setThumbnail("image/thumbnail/Portal.jpg");
         Portal.setPicture("image/picture/Portal_Picture_1.jpg");
         Portal.setBiglogo("image/biglogo/Portal_Big_logo.jpg");
@@ -28,8 +26,6 @@ public class ProductRepository {
 		Portal2.setCategory("Puzzle");
 		Portal2.setDeveloper("Valve");
         Portal2.setPublisher("Valve");
-		Portal2.setUnitsInStock(1000);
-		Portal2.setCondition("New");
         Portal2.setThumbnail("image/thumbnail/Portal_2.jpg");
         Portal2.setPicture("image/picture/Portal_2_Picture_1.jpg");
         Portal2.setBiglogo("image/biglogo/Portal_2_Big_logo.jpg");
@@ -39,8 +35,6 @@ public class ProductRepository {
 		Baba.setCategory("Puzzle");
 		Baba.setDeveloper("Hempuli Oy");
         Baba.setPublisher("Hempuli Oy");
-		Baba.setUnitsInStock(1000);
-		Baba.setCondition("New");
         Baba.setThumbnail("image/thumbnail/Baba_Is_You.jpg");
         Baba.setPicture("image/picture/Baba_Is_You_Picture_1.jpg");
         Baba.setBiglogo("image/biglogo/Baba_Is_You_Big_logo.jpg");

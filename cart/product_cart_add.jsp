@@ -1,42 +1,62 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="dto.Product"%>
-<%@ page import="dao.ProductRepository"%>
+<%@ page import="java.sql.*"%>
+<%@ include file="../db/db_conn.jsp"%>
 
 <%
-	String id = request.getParameter("id");
-	if (id == null || id.trim().equals("")) {
-		response.sendRedirect("../index.jsp");
-		return;
-	}
+    String productId = request.getParameter("id");
 
-	ProductRepository dao = ProductRepository.getInstance();
-	Product product = dao.getProductById(id);
+    if (productId == null || productId.trim().equals("")) {
+        response.sendRedirect("../index.jsp");
+        return;
+    }
 
-	if (product == null) {
-		response.sendRedirect("../exception/product_not_found.jsp");
-		return; // 여기서 함수를 종료합니다.
-	}
+    boolean isProductInCart = false;
 
-	ArrayList<Product> list = (ArrayList<Product>) session.getAttribute("cartlist");
-	if (list == null) {
-		list = new ArrayList<Product>();
-		session.setAttribute("cartlist", list);
-	}
+    try {
 
-	boolean isProductInCart = false;
-	for (Product item : list) {
-		if (item.getProductId().equals(id)) {
-			isProductInCart = true;
-			break;
-		}
-	}
+        // 장바구니에 동일한 상품이 있는지 확인
+        String sql = "SELECT * FROM cart WHERE p_id=?";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, productId);
+        rs = pstmt.executeQuery();
+        isProductInCart = rs.next();
 
-	if (!isProductInCart) {
-		list.add(product);
-	}
+        if (!isProductInCart) {
+            // 상품 정보를 가져옵니다.
+            sql = "SELECT * FROM product WHERE p_id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, productId);
+            ResultSet rsProduct = pstmt.executeQuery();
 
-	// 성공적으로 상품이 추가된 경우, AJAX 호출에 성공 응답을 보냅니다.
-	response.setContentType("text/plain");
-	response.getWriter().write("Success");
+            if (rsProduct.next()) {
+                String productName = rsProduct.getString("p_name");
+                int unitPrice = rsProduct.getInt("p_unitPrice");
+                String thumbnail = rsProduct.getString("p_thumbnail");
+
+                // 장바구니에 상품 추가
+                sql = "INSERT INTO cart (p_id, p_name, p_unitPrice, p_thumbnail) VALUES (?, ?, ?, ?)";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, productId);
+                pstmt.setString(2, productName);
+                pstmt.setInt(3, unitPrice);
+                pstmt.setString(4, thumbnail);
+                pstmt.executeUpdate();
+            }
+            rsProduct.close();
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace(); // 오류 처리
+        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        return;
+    } finally {
+        // 자원 해제
+        if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+        if (pstmt != null) try { pstmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+        if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+    }
+
+    // 성공적으로 상품이 추가된 경우, AJAX 호출에 성공 응답을 보냅니다.
+    response.setContentType("text/plain");
+    response.getWriter().write(isProductInCart ? "Already in cart" : "Success");
 %>

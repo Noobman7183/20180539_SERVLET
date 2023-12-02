@@ -1,13 +1,14 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ page import="java.sql.*"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="java.net.URLDecoder"%>
 <%@ page import="dto.Product"%>
-<%@ page import="dao.ProductRepository"%>
 <%@ page import="java.text.NumberFormat"%>
+<%@ page import="java.net.URLDecoder"%>
 <%@ page import="java.util.Locale"%>
+<%@ include file="../db/db_conn.jsp"%>
 
 <%
-	request.setCharacterEncoding("UTF-8");
+    request.setCharacterEncoding("UTF-8");
 	String cartId = session.getId(); // 세션 id 얻기
 
 	String shipping_cartId = "";
@@ -15,8 +16,10 @@
 	String shipping_country = "";
 	String shipping_zipCode = "";
 	String shipping_addressName = "";
+    NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("ko", "KR"));
 
-	NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("ko", "KR"));
+    ArrayList<Product> cartList = new ArrayList<Product>();
+    int sum = 0;
 
 	Cookie[] cookies = request.getCookies(); // 쿠키 배열로부터 정보 얻기
 
@@ -36,7 +39,32 @@
 				shipping_addressName = URLDecoder.decode((thisCookie.getValue()), "utf-8");
 		}
 	}
+
+    try {
+
+        // 모든 장바구니 항목 조회
+        String sql = "SELECT * FROM cart";
+        pstmt = conn.prepareStatement(sql);
+        rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            Product product = new Product();
+            product.setProductId(rs.getString("p_id"));
+            product.setPname(rs.getString("p_name"));
+            product.setUnitPrice(rs.getInt("p_unitPrice"));
+            product.setThumbnail(rs.getString("p_thumbnail"));
+            cartList.add(product);
+            sum += product.getUnitPrice();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // 오류 처리
+    } finally {
+        if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+        if (pstmt != null) try { pstmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+        if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+    }
 %>
+
 
 <html>
 <head>
@@ -75,21 +103,14 @@
 			<th class="text-center"></th>
 			<th>가격</th>
 		</tr>
-		<%
-			int sum = 0;
-			ArrayList<Product> cartList = (ArrayList<Product>) session.getAttribute("cartlist");
-			if (cartList == null)
-				cartList = new ArrayList<Product>();
-			for (int i = 0; i < cartList.size(); i++) { // 상품리스트 하나씩 출력하기
-				Product product = cartList.get(i);
-				int total = product.getUnitPrice();
-				sum = sum + total;
-		%>
+        <% 
+        for(Product product : cartList) { // 반복문 안에서 product 객체 사용
+        %>
 		<tr style="color:white;">
 			<td><img src="../<%=product.getThumbnail()%>", class="img-fluid" alt="game_thumbnail" style="width:120px; height:45px;"> <%=product.getPname()%></td>
 			<td></td>
             <td></td>
-			<td><%=formatter.format(total)%></td>
+			<td><%=formatter.format(product.getUnitPrice())%></td>
 		</tr>
 		<%
 			}

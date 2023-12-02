@@ -48,3 +48,44 @@ function CheckAddProduct() {
 
 	 document.newProduct.submit()
 }
+
+function CheckAddMember() {
+    var id = document.getElementById("id").value;
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+    var name = document.getElementById("name").value;
+    var gender = document.getElementById("gender").value;
+
+    // ID 유효성 검증
+    if(id == "") {
+        alert("ID를 입력해 주세요.");
+        return false;
+    }
+
+    // 비밀번호 유효성 검증
+    if(password == "") {
+        alert("비밀번호를 입력해 주세요.");
+        return false;
+    }
+
+    // 비밀번호 재확인 검증
+    if(password != confirmPassword) {
+        alert("비밀번호가 일치하지 않습니다.");
+        return false;
+    }
+
+    // 이름 유효성 검증
+    if(name == "") {
+        alert("이름을 입력해 주세요.");
+        return false;
+    }
+
+    // 성별 유효성 검증 (선택적)
+    if(gender == "") {
+        alert("성별을 선택해 주세요.");
+        return false;
+    }
+
+    // 모든 검증을 통과한 경우 폼 제출
+    document.newMember.submit();
+}

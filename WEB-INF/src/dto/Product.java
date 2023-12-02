@@ -12,8 +12,6 @@ public class Product implements Serializable { // 인터페이스 선언
 	private String developer; //개발사
     private String publisher; //배급사
 	private String category; 	//분류
-	private long unitsInStock; //재고수 
-	private String condition; 	//신상품 or 중고품 or 재생품
     private String thumbnail; // 썸네일
     private String picture; // 이미지
     private String biglogo; // 큰 로고
@@ -84,22 +82,6 @@ public class Product implements Serializable { // 인터페이스 선언
 		this.category = category;
 	}
 
-	public long getUnitsInStock() {
-		return unitsInStock;
-	}
-
-	public void setUnitsInStock(long unitsInStock) {
-		this.unitsInStock = unitsInStock;
-	}
-
-	public String getCondition() {
-		return condition;
-	}
-
-	public void setCondition(String condition) {
-		this.condition = condition;
-	}
-    
     public String getThumbnail(){
         return thumbnail;
     }

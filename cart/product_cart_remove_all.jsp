@@ -1,15 +1,24 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="dto.Product"%>
-<%@ page import="dao.ProductRepository"%>
+<%@ page import="java.sql.*"%>
+<%@ include file="../db/db_conn.jsp"%>
 
 <%
-	String id = request.getParameter("cartId");
-	if (id == null || id.trim().equals("")) {
-		response.sendRedirect("product_cart.jsp");
-		return;
-	}
 
-	session.invalidate(); // 세션 초기화
-	
-	response.sendRedirect("product_cart.jsp");
+    try {
+
+        String sql = "DELETE FROM cart";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.executeUpdate();
+
+    } catch (SQLException e) {
+        e.printStackTrace(); // 오류 처리
+        response.sendRedirect("../exception/error.jsp");
+        return;
+    } finally {
+        // 자원 해제
+        if (pstmt != null) try { pstmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+        if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+    }
+
+    response.sendRedirect("../cart/product_cart.jsp");
 %>

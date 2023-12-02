@@ -14,11 +14,7 @@
     <%@ include file="top_menu_ad.jsp" %>
     <%
         String productName = request.getParameter("productName");
-        String cart = request.getParameter("cart_ad");
-        if ("true".equals(cart)) {
-            // 장바구니 페이지 로드
-            %><%@ include file="cart_ad.jsp" %><%
-        } else if (productName != null && !productName.isEmpty()) {
+        if (productName != null && !productName.isEmpty()) {
             // 제품 상세 페이지 로드
             %><%@ include file="store_advance_ad.jsp" %><%
         } else {
